@@ -10,5 +10,28 @@ body {
 }
 
 .App {
-  text-align: center;
+  background: #eee;
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto auto 1fr [footer-start] auto;
+}
+
+#application-footer {
+  grid-row-start: footer;
+  
+  dl {
+    font-size: 0.80rem;
+    margin: 0;
+    
+    dt {
+      padding-right: 0;
+    }
+    dd {
+      margin-bottom: 0.15rem;
+    }
+  }
+}
+
+.text-right {
+  text-align: right;
 }
