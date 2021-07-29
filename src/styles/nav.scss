@@ -1,7 +1,14 @@
 .nav-icon-container {
   display: flex;
-  flex-direction: row;
-  .nav-link {
-    padding: 0.5rem;
+  flex-direction: row !important;
+
+  & > .nav-link {
+    padding-top: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    & ~ .nav-link {
+      padding-left: 0.5rem;
+    }
   }
 }
