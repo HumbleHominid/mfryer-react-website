@@ -16,6 +16,18 @@ body {
   grid-template-rows: auto auto 1fr [footer-start] auto;
 }
 
+#application-content-container {
+  padding: 0.5em;
+
+  @include media-breakpoint-up(xs) {
+      margin: 0 5%;
+  }
+
+  @include media-breakpoint-up(md) {
+      margin: 0 10%;
+  }
+}
+
 #application-footer {
   grid-row-start: footer;
   
