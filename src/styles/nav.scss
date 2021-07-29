@@ -3,12 +3,10 @@
   flex-direction: row !important;
 
   & > .nav-link {
-    padding-top: 0.5rem;
-    padding-right: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 0rem !important;
 
     & ~ .nav-link {
-      padding-left: 0.5rem;
+      padding-left: 0.5rem !important;
     }
   }
 }
