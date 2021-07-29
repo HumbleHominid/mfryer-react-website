@@ -8,16 +8,16 @@ import About from './about';
 function App() {
   return (
     <Router>
-    <div id="application">
-      <CustomNavbar />
-      <Container id="application-content-container">
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/about" component={About} />
-        </Switch>
-      </Container>
-      <Footer />
-    </div>
+      <div id="application">
+        <CustomNavbar />
+        <Container id="application-content-container">
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/about" component={About} />
+          </Switch>
+        </Container>
+        <Footer />
+      </div>
     </Router>
   );
 }
