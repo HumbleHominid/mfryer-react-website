@@ -4,15 +4,6 @@ export default function Footer() {
       <dl className="row">
         <dt className="col text-right">Email</dt>
         <dd className="col">michael.d.fryer@gmail.com</dd>
-        <div className="w-100"></div>
-        <dt className="col text-right">GitHub</dt>
-        <dd className="col"><a id="gitHubLink" target="_blank" rel="noreferrer" href="https://github.com/HumbleHominid">HumbleHominid</a></dd>
-        <div className="w-100"></div>
-        <dt className="col text-right">LinkedIn</dt>
-        <dd className="col"><a id="linkedInLink" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/michael-fryer-bb017013a/">Michael Fryer</a></dd>
-        <div className="w-100"></div>
-        <dt className="col text-right">Resume</dt>
-        <div className="col"><a id="resumeLink" href="/resume" download="Michael_Fryer_Resume.pdf">Download</a></div>
       </dl>
     </footer>
   );

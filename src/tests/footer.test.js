@@ -25,28 +25,4 @@ it("It Renders", () => {
 
   expect(container.textContent).toContain("Email");
   expect(container.textContent).toContain("michael.d.fryer@gmail.com");
-  expect(container.textContent).toContain("GitHub");
-  expect(container.textContent).toContain("HumbleHominid");
-  expect(container.textContent).toContain("LinkedIn");
-  expect(container.textContent).toContain("Michael Fryer");
-  expect(container.textContent).toContain("Resume");
-  expect(container.textContent).toContain("Download");
-});
-
-it("Links are correct", () => {
-  act(() => {
-    render(<Footer/>, container);
-  });
-
-  // GitHub
-  let gitHubLink = document.getElementById("gitHubLink");
-  expect(gitHubLink.href).toBe("https://github.com/HumbleHominid");
-
-  // LinkedIn
-  let linkedInLink = document.getElementById("linkedInLink");
-  expect(linkedInLink.href).toBe("https://www.linkedin.com/in/michael-fryer-bb017013a/");
-
-  // Resume - TODO: This should be updated when I figure out what I'm doing here... fine for now
-  let resumeLink = document.getElementById("resumeLink");
-  expect(resumeLink.href).toBe("http://localhost/resume")
 });

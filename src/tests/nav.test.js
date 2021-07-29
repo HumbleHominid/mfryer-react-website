@@ -23,5 +23,23 @@ it("It Renders", () => {
   act(() => {
     render(<Router><Nav/></Router>, container);
   });
-  expect(container.textContent).toBe(" HomeAbout");
+  expect(container.textContent).toBe("About");
+});
+
+it("Links are correct", () => {
+  act(() => {
+    render(<Router><Nav/></Router>, container);
+  });
+
+  // GitHub
+  let gitHubLink = document.getElementById("gitHubLink");
+  expect(gitHubLink.href).toBe("https://github.com/HumbleHominid");
+
+  // LinkedIn
+  let linkedInLink = document.getElementById("linkedInLink");
+  expect(linkedInLink.href).toBe("https://www.linkedin.com/in/michael-fryer-bb017013a/");
+
+  // Resume - TODO: This should be updated when I figure out what I'm doing here... fine for now
+  let resumeLink = document.getElementById("resumeLink");
+  expect(resumeLink.href).toBe("http://localhost/resume")
 });
