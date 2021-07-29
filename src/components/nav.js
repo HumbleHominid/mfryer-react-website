@@ -36,7 +36,7 @@ export default function CustomNavbar() {
               <Nav.Link id="linkedInLink" title="LinkedIn" href="https://www.linkedin.com/in/michael-fryer-bb017013a/">
                 <Linkedin />
               </Nav.Link>
-              <Nav.Link id="resumeLink" title="Resume" href="/resume">
+              <Nav.Link id="resumeLink" title="Resume" href="/resume" disabled>
                 <FileEarmarkPdf />
               </Nav.Link>
             </Nav>
