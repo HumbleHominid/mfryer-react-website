@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 
 function App() {
   return (
-    <div className="App">
+    <div id="application">
       <CustomNavbar />
       <Container id="application-content-container">
         <h1>My First App!</h1>
