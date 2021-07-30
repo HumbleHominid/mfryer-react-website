@@ -21,21 +21,7 @@
     margin-left: -0.5rem;
   }
 
-  & > .nav-link {
+  & > .nav-link,.navbar-text {
     padding: 0.5rem !important;
-
-    &:hover {
-      animation-delay: 0.25s;
-      animation-name: nav-icon-jiggle;
-      animation-duration: 3s;
-      animation-iteration-count: infinite;
-    }
   }
-}
-
-@keyframes nav-icon-jiggle {
-  0% { transform: rotate(0deg); }
-  2% { transform: rotate(10deg); }
-  6% { transform: rotate(-10deg); }
-  8% { transform: rotate(0deg); }
 }

@@ -1,0 +1,80 @@
+.email-container {
+  display: flex;
+  align-items: flex-end;
+
+  & > .email-text {
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+    flex-basis: 0%;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .envelope-open {
+    animation-name: envelope-spin-backward;
+    animation-duration: 1s;
+  }
+
+  .envelope-close {
+    animation-name: envelope-spin-forward;
+    animation-duration: 1s;
+  }
+
+  .envelope-container-open {
+    animation-name: envelope-unhide;
+    animation-duration: 0.25s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+  }
+
+  .envelope-container-close {
+    animation-name: envelope-hide;
+    animation-delay: 0.5s;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+  }
+
+  .email-text-open {
+    animation-name: email-slide-in;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+
+  .email-text-close {
+    animation-name: email-slide-out;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes envelope-spin-forward {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes envelope-spin-backward {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes envelope-hide {
+  0% { opacity: 100%; }
+  100% { opacity: 0%; }
+}
+@keyframes envelope-unhide {
+  0% { opacity: 0%; }
+  100% { opacity: 100%; }
+}
+
+@keyframes email-slide-in {
+  0% { flex-basis: 0%; }
+  100% { flex-basis: 100%; }
+}
+
+@keyframes email-slide-out {
+  0% { flex-basis: 100%; }
+  100% { flex-basis: 0%; }
+}
