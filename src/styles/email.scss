@@ -1,4 +1,5 @@
 .email-container {
+  position: relative;
   display: flex;
   align-items: flex-end;
 
@@ -7,6 +8,19 @@
     align-items: center;
     overflow: hidden;
     flex-basis: 0%;
+  }
+
+  & > .copied-element {
+    position: absolute;
+    padding: .05rem 0.25rem;
+    left: 1rem;
+    background-color: rgb(204, 198, 198);
+    border-radius: 0.25rem;
+    border: 1px solid lightgrey;
+
+    animation-name: copied-anim;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
   }
 
   &:hover {
@@ -77,4 +91,9 @@
 @keyframes email-slide-out {
   0% { flex-basis: 100%; }
   100% { flex-basis: 0%; }
+}
+
+@keyframes copied-anim {
+  0% { opacity: 100%; bottom: 0.25rem; }
+  100% { opacity: 0%; bottom: 1.25rem; }
 }

@@ -18,12 +18,12 @@ export default class Email extends Component {
     this.state = {
       email: 'michael.d.fryer@gmail.com',
       animationState: EmailState.Initial,
+      showCopy: false,
     };
   }
 
   render() {
-    function CssDescription(envelope = '', envelopeContainer = '', emailText = '')
-    {
+    function CssDescription(envelope = '', envelopeContainer = '', emailText = '') {
       return {
         envelope: envelope,
         envelopeContainer: envelopeContainer,
@@ -42,11 +42,16 @@ export default class Email extends Component {
     const envelopeContainerCss = cssForState.envelopeContainer;
     const emailTextCss = cssForState.emailText;
 
+    let copiedElement;
+    if (this.state.showCopy) {
+      copiedElement = <span className="copied-element text-dark">Copied!</span>
+    }
+
     return (
       <Nav.Item
         className="navbar-text email-container"
         onPointerEnter={() => this.pointerEnter()}
-        onPointerLeave={() => this.pointerLeave()}
+        onPointerLeave={() => this.pointerLeave()}  
       >
         <span
           className={`email-text ${emailTextCss}`}
@@ -58,6 +63,7 @@ export default class Email extends Component {
         <div className={`envelope-container ${envelopeContainerCss}`}>
           <Envelope className={`envelope ${envelopeCss}`} />
         </div>
+        {copiedElement}
       </Nav.Item>
     );
   }
@@ -72,8 +78,10 @@ export default class Email extends Component {
 
   copyEmail() {
     navigator.clipboard.writeText(this.state.email).then(() => {
-      // TODO add a little "Copied!" thingy when it's successful instead of this alert
-      alert("Copied!");
+      this.setState({ showCopy: true });
+      setTimeout(() => {
+        this.setState({ showCopy: false });
+      }, 1000);
     });
   }
 }
