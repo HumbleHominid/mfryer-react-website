@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { Envelope, Clipboard } from 'react-bootstrap-icons';
+import { Email as emailLink } from '../refLinks';
 
 import '../styles/email.scss';
 import '../styles/icon-jiggle.scss';
@@ -16,7 +17,6 @@ export default class Email extends Component {
     super(props);
 
     this.state = {
-      email: 'michael.d.fryer@gmail.com',
       animationState: EmailState.Initial,
       showCopy: false,
     };
@@ -57,7 +57,7 @@ export default class Email extends Component {
           className={`email-text ${emailTextCss}`}
           onClick={() => this.copyEmail()}
         >
-          {this.state.email}
+          {emailLink}
           <Clipboard className="icon-jiggle" />
         </span>
         <div className={`envelope-container ${envelopeContainerCss}`}>
@@ -77,7 +77,7 @@ export default class Email extends Component {
   }
 
   copyEmail() {
-    navigator.clipboard.writeText(this.state.email).then(() => {
+    navigator.clipboard.writeText(emailLink).then(() => {
       this.setState({ showCopy: true });
       setTimeout(() => {
         this.setState({ showCopy: false });
