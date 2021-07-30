@@ -1,12 +1,28 @@
+@import "app.scss";
+
 .nav-icon-container {
   display: flex;
   flex-direction: row !important;
 
-  & > .nav-link {
-    padding: 0.5rem 0.5rem 0.5rem 0rem !important;
+  @include media-breakpoint-up(xs) {
+    margin-left: -0.5rem;
+  }
 
-    & ~ .nav-link {
-      padding-left: 0.5rem !important;
+  & > .nav-link {
+    padding: 0.5rem !important;
+
+    &:hover {
+      animation-delay: 0.25s;
+      animation-name: nav-icon-jiggle;
+      animation-duration: 3s;
+      animation-iteration-count: infinite;
     }
   }
+}
+
+@keyframes nav-icon-jiggle {
+  0% { transform: rotate(0deg); transform-origin: center; }
+  2% { transform: rotate(10deg); transform-origin: center; }
+  6% { transform: rotate(-10deg); transform-origin: center; }
+  8% { transform: rotate(0deg); transform-origin: center; }
 }
