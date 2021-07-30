@@ -1,5 +1,18 @@
 @import "app.scss";
 
+.logo:hover {
+  animation-delay: 5s;
+  animation-name: logo-zoom;
+  animation-duration: 60s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes logo-zoom {
+  0% { transform: scale(100%); }
+  100% { transform: scale(1000%); }
+}
+
 .nav-icon-container {
   display: flex;
   flex-direction: row !important;
@@ -21,8 +34,8 @@
 }
 
 @keyframes nav-icon-jiggle {
-  0% { transform: rotate(0deg); transform-origin: center; }
-  2% { transform: rotate(10deg); transform-origin: center; }
-  6% { transform: rotate(-10deg); transform-origin: center; }
-  8% { transform: rotate(0deg); transform-origin: center; }
+  0% { transform: rotate(0deg); }
+  2% { transform: rotate(10deg); }
+  6% { transform: rotate(-10deg); }
+  8% { transform: rotate(0deg); }
 }

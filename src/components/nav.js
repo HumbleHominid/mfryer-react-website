@@ -18,7 +18,7 @@ export default function CustomNavbar() {
                 src="/logo.png"
                 width="30"
                 height="30"
-                className="d-inline-block align-top"
+                className="d-inline-block align-top logo"
               />
             </Navbar.Brand>
           </LinkContainer>
