@@ -3,8 +3,8 @@ import Nav from 'react-bootstrap/Nav';
 import { LinkContainer } from 'react-router-bootstrap';
 import Container from 'react-bootstrap/Container';
 import { Github, Linkedin, FileEarmarkPdf } from 'react-bootstrap-icons';
-import { GitHub, LinkedIn } from '../refLinks'
-;import Email from './email';
+import { GitHub, LinkedIn } from '../refLinks';
+import Email from './email';
 
 import '../styles/nav.scss';
 import '../styles/icon-jiggle.scss';
