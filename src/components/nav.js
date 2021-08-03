@@ -31,6 +31,9 @@ export default function CustomNavbar() {
               <LinkContainer to="/about">
                 <Nav.Link>About</Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/game">
+                <Nav.Link>Game</Nav.Link>
+              </LinkContainer>
             </Nav>
             <Nav className="nav-icon-container">
               <Nav.Link id="gitHubLink" className="icon-jiggle" title="GitHub" href={GitHub}>
