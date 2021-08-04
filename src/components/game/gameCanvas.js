@@ -26,7 +26,7 @@ export default function GameCanvas(props) {
     }
 
     // TODO Make this component based here so we just do `renderUI()` instead or something. This slow
-    if (spaceGame.state === SpaceGameState.TITLE) renderTitle(context, spaceGame);
+    if (spaceGame.state === SpaceGameState.TITLE) drawTitle(context);
     if (spaceGame.state === SpaceGameState.PLAYING) renderInGameUI(context, spaceGame);
   }, [spaceGame, dt]);
 
@@ -62,7 +62,7 @@ function drawButton(context, centerX, centerY, text) {
   context.fillText(text, centerX, centerY);
 }
 
-function renderTitle(context, spaceGame) {
+function drawTitle(context) {
   const centerX = Math.floor(context.canvas.width / 2);
   context.fillStyle = '#eee';
 
