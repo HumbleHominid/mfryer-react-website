@@ -46,17 +46,19 @@ function renderInGameUI(context, spaceGame) {
   context.fillText(`Lives: ${spaceGame.player.lives}`, gap, fontHeight + 2*gap);
 }
 
-function drawButton(context, centerX, centerY, text) {
-  const width = 150;
-  const height = 50;
+function drawButton(context, centerX, centerY, text, scale = 1) {
+  let clampedScale = Math.max(Math.min(scale, 1), 0);
+  const width = 150 * clampedScale;
+  const height = 50 * clampedScale;
   const left = centerX - Math.floor(width / 2);
   const right = centerY - Math.floor(height / 2);
 
   context.strokeStyle = '#eee';
   context.strokeRect(left, right, width, height);
   
+  const fontSize = Math.floor(20 * clampedScale);
   context.fillStyle = '#eee';
-  context.font = '20px consolas';
+  context.font = `${fontSize}px consolas`;
   context.textAlign = 'center';
   context.textBaseline = 'middle';
   context.fillText(text, centerX, centerY);
@@ -81,7 +83,7 @@ function drawTitle(context) {
 
   // Buttons
   drawButton(context, centerX, 275, 'PLAY');
-  drawButton(context, centerX, 350, 'CONTROLS');
+  drawButton(context, centerX, 350, 'CONTROLS', 0.8);
 
   // TODO: Hook up the click events?!?!
 }
