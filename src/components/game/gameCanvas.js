@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react';
 import { useRef, useEffect } from 'react';
 import { SpaceGameState } from './spaceGame';
 
@@ -17,13 +18,15 @@ export default function GameCanvas(props) {
     context.fillRect(0, 0, width, height);
 
     // Render the entities
-    spaceGame.forEachEntity((entity) => {
-      entity.render(context);
-    });
-    spaceGame.player.render(context);
-
+    if (spaceGame.stat === SpaceGameState.PLAYING) {
+      spaceGame.forEachEntity((entity) => {
+        entity.render(context);
+      });
+      spaceGame.player.render(context);
+    }
 
     // TODO Make this component based here so we just do `renderUI()` instead or something. This slow
+    if (spaceGame.state === SpaceGameState.MENU) renderMenu(context, spaceGame);
     if (spaceGame.state === SpaceGameState.PLAYING) renderInGameUI(context, spaceGame);
   }, [spaceGame, dt]);
 
@@ -37,6 +40,48 @@ function renderInGameUI(context, spaceGame) {
 
   context.font = `${fontHeight}px consolas`;
   context.fillStyle = '#eee';
-  context.fillText(`Score: ${spaceGame.score}`, gap, fontHeight + gap);
-  context.fillText(`Lives: ${spaceGame.player.lives}`, gap, 2*(fontHeight + gap));
+  context.textAlign = 'start';
+  context.textBaseline = 'hanging';
+  context.fillText(`Score: ${spaceGame.score}`, gap, gap);
+  context.fillText(`Lives: ${spaceGame.player.lives}`, gap, fontHeight + 2*gap);
+}
+
+function drawButton(context, centerX, centerY, text) {
+  const width = 150;
+  const height = 50;
+  const left = centerX - Math.floor(width / 2);
+  const right = centerY - Math.floor(height / 2);
+
+  context.strokeStyle = '#eee';
+  context.strokeRect(left, right, width, height);
+  
+  context.fillStyle = '#eee';
+  context.font = '20px consolas';
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  context.fillText(text, centerX, centerY);
+}
+
+function renderMenu(context, spaceGame) {
+  const centerX = Math.floor(context.canvas.width / 2);
+  context.fillStyle = '#eee';
+
+  // Heading
+  const headingSize = 72;
+  const subHeadingSize = 22;
+  const gap = 15;
+  context.font = `${headingSize}px consolas`;
+  context.textAlign = 'center';
+  context.textBaseline = 'hanging';
+  context.fillText('Space Game', centerX, gap);
+
+  context.font = `${subHeadingSize -2}px consolas`;
+  context.fillText('Definitely an original game.', centerX, (2*gap) + headingSize, 300);
+  context.fillText('By: Michael Fryer', centerX, (3*gap) + headingSize + subHeadingSize)
+
+  // Buttons
+  drawButton(context, centerX, 275, 'PLAY');
+  drawButton(context, centerX, 350, 'CONTROLS');
+
+  // TODO: Hook up the click events?!?!
 }
