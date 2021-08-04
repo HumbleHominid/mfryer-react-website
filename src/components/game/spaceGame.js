@@ -4,9 +4,7 @@ import Position from './position';
 
 export default class SpaceGame {
   entities = [
-    createEntity(EntityType.ENEMY, new Position(Math.random() * 200, Math.random() * 200)),
-    createEntity(EntityType.ENEMY, new Position(Math.random() * 200, Math.random() * 200)),
-    createEntity(EntityType.PLAYER, new Position(Math.random() * 200, Math.random() * 200)),
+    createEntity(EntityType.ENEMY),
   ];
 
   forEachEntity(delegate = (entity) => {}) {

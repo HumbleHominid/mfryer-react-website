@@ -11,6 +11,12 @@ export default class Entity {
 
   render(canvasContext) {
     const image = getSprite(this.type);
-    canvasContext.drawImage(image, this.position.x, this.position.y, this.size.width, this.size.height);
+    const width = this.size.width;
+    const height = this.size.height;
+    canvasContext.drawImage(image,
+      this.position.x - (width / 2),
+      this.position.y - (height / 2),
+      width,
+      height);
   }
 }
