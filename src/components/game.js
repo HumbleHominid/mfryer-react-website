@@ -7,9 +7,9 @@ export default class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      spaceGame: new SpaceGame(),
       frameCount: 0
     }
+    this.spaceGame = new SpaceGame();
   }
 
   componentDidMount() {
@@ -36,15 +36,19 @@ export default class Game extends Component {
       <div>
         <h1 className="display-2">Game</h1>
         <div id="gameCanvasContainer">
-          <GameCanvas spaceGame={this.state.spaceGame} frame={this.state.frameCount} />
+          <GameCanvas spaceGame={this.spaceGame} frame={this.state.frameCount} />
         </div>
       </div>
     );
   }
 
   loop() {
+    const newFrameCount = this.state.frameCount + 1;
+    this.spaceGame.score = Math.floor(newFrameCount / 10);
+
+  
     this.setState({
-      frameCount: this.state.frameCount + 1
+      frameCount: newFrameCount
     });
   }
 }
