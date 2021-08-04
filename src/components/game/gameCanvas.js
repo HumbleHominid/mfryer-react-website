@@ -31,7 +31,7 @@ export default function GameCanvas(props) {
     if (spaceGame.state === SpaceGameState.PLAYING) drawInGameUI(context, spaceGame);
   }, [spaceGame, dt]);
 
-  return <canvas id="gameCanvas" className="mx-auto" width="750" height="500" ref={canvasRef} {...rest} />
+  return <canvas id="gameCanvas" className="mx-auto" width="750" height="500" ref={canvasRef} {...rest} />;  // TODO: magic numbers
 }
 
 // Draws the lives and score
@@ -97,13 +97,12 @@ function drawTitle(context) {
   drawButton(context, centerX, 275, 'PLAY', () => alert('Let\'s play!' ));
   drawButton(context, centerX, 350, 'CONTROLS', () => {}, 0.8);
 
-  // TODO: Hook up the click events?!?!
   context.canvas.addEventListener("click", handleCanvasClick);
 }
 
 function handleCanvasClick(e) {
   const canvas = document.getElementById('gameCanvas');
-  const scaleFactor = (canvas.offsetWidth) / 750;
+  const scaleFactor = (canvas.offsetWidth) / 750; // TODO: magic number
   const canvasBB = canvas.getBoundingClientRect();
   const clickX = (e.clientX - canvasBB.left) / scaleFactor;
   const clickY = (e.clientY - canvasBB.top) / scaleFactor;
