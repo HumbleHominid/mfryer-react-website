@@ -3,7 +3,7 @@ import Position from './position';
 import SpriteConfig from './spriteConfig';
 
 export default class Entity {
-  constructor(type, position = new Position(50, 50)) {
+  constructor(type, position = new Position(0, 0)) {
     this.position = position;
     this.type = type;
   }
