@@ -80,14 +80,14 @@ function drawTitle(context, spaceGame) {
 
   // Heading
   const headingSize = 72;
-  const subHeadingSize = 22;
+  const subHeadingSize = 20;
   const gap = 15;
   context.font = `${headingSize}px consolas`;
   context.textAlign = 'center';
   context.textBaseline = 'hanging';
   context.fillText('Space Game', centerX, gap);
 
-  context.font = `${subHeadingSize -2}px consolas`;
+  context.font = `${subHeadingSize}px consolas`;
   context.fillText('Definitely an original game.', centerX, (2*gap) + headingSize, 300);
   context.fillText('By: Michael Fryer', centerX, (3*gap) + headingSize + subHeadingSize);
 
