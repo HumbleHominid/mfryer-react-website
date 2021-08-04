@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import { useRef, useEffect } from 'react';
 import { SpaceGameState } from './spaceGame';
 
