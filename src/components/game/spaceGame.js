@@ -3,14 +3,14 @@ import { EntityType } from './entityType';
 import Position from './position';
 
 const SpaceGameState = {
-  'MENU': 'menu',
+  'TITLE': 'title',
   'PLAYING': 'playing',
   'PAUSED': 'paused',
   'POSTGAME': 'postgame',
 };
 
 export default class SpaceGame {
-  state = SpaceGameState.MENU;
+  state = SpaceGameState.TITLE;
   score = 0;
   level = -1;
   player = createEntity(EntityType.PLAYER, new Position(375, 450));
