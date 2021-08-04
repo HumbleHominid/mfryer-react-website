@@ -11,7 +11,7 @@ export default function GameCanvas(props) {
     gameState.forEachEntity((entity) => {
       entity.render(context);
     });
-  }, []);
+  }, [gameState]);
 
   return <canvas id="gameCanvas" width="250" height="250" ref={canvasRef} {...rest} />
 }
