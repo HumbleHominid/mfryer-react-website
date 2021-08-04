@@ -11,11 +11,30 @@ export default class Game extends Component {
     }
   }
 
+  componentDidMount() {
+    let el = document.getElementById('gameCanvasContainer');
+    let bottom = el.offsetTop + el.offsetHeight;
+    let right = el.offsetLeft + el.offsetWidth;
+    const clientWidth = document.documentElement.clientWidth;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (right > clientWidth) {
+      let calculatedWidth = clientWidth * 0.8;
+      document.getElementById('gameCanvas').style.width = `${calculatedWidth}px`;
+    }
+    else if (bottom > clientHeight) {
+      let calculatedHeight = clientHeight * 0.8;
+      document.getElementById('gameCanvas').style.height = `${calculatedHeight}px`;
+    }
+  }
+
   render() {
     return (
       <div>
         <h1 className="display-2">Game</h1>
-        <GameCanvas gameState={this.state.spaceGame} />
+        <div id="gameCanvasContainer">
+          <GameCanvas gameState={this.state.spaceGame} />
+        </div>
       </div>
     );
   }
