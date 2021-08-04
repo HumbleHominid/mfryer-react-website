@@ -9,6 +9,7 @@ export default function GameCanvas(props) {
     const context = canvas.getContext('2d');
 
     gameState.forEachEntity((entity) => {
+      console.log(entity)
       entity.render(context);
     });
   }, [gameState]);

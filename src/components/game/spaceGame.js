@@ -1,12 +1,12 @@
-import Entity from './entity.js';
+import createEntity from './entityFactory';
 import { EntityType } from './entityType';
-import Position from './position.js';
+import Position from './position';
 
 export default class SpaceGame {
   entities = [
-    new Entity(EntityType.ENEMY, new Position(Math.random() * 200, Math.random() * 200)),
-    new Entity(EntityType.ENEMY, new Position(Math.random() * 200, Math.random() * 200)),
-    new Entity(EntityType.PLAYER, new Position(Math.random() * 200, Math.random() * 200)),
+    createEntity(EntityType.ENEMY, new Position(Math.random() * 200, Math.random() * 200)),
+    createEntity(EntityType.ENEMY, new Position(Math.random() * 200, Math.random() * 200)),
+    createEntity(EntityType.PLAYER, new Position(Math.random() * 200, Math.random() * 200)),
   ];
 
   forEachEntity(delegate = (entity) => {}) {
