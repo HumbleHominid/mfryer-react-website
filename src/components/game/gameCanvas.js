@@ -26,14 +26,14 @@ export default function GameCanvas(props) {
 
     // TODO Make this component based here so we just do `renderUI()` instead or something. This slow
     if (spaceGame.state === SpaceGameState.TITLE) drawTitle(context);
-    if (spaceGame.state === SpaceGameState.PLAYING) renderInGameUI(context, spaceGame);
+    if (spaceGame.state === SpaceGameState.PLAYING) drawInGameUI(context, spaceGame);
   }, [spaceGame, dt]);
 
   return <canvas id="gameCanvas" className="mx-auto" width="750" height="500" ref={canvasRef} {...rest} />
 }
 
 // Draws the lives and score
-function renderInGameUI(context, spaceGame) {
+function drawInGameUI(context, spaceGame) {
   const gap = 5;
   const fontHeight = 12;
 
