@@ -1,4 +1,4 @@
-import SpritePool from './spritePool';
+import getSprite from './spritePool';
 import Position from './position';
 
 export default class Entity {
@@ -8,7 +8,7 @@ export default class Entity {
   }
 
   render(canvasContext) {
-    const image = SpritePool.getSprite(this.type);
+    const image = getSprite(this.type);
     canvasContext.drawImage(image, this.position.x, this.position.y);
   }
 }
