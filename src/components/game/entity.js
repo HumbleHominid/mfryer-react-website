@@ -1,5 +1,6 @@
 import getSprite from './spritePool';
 import Position from './position';
+import SpriteConfig from './spriteConfig';
 
 export default class Entity {
   constructor(type, position = new Position(50, 50)) {
@@ -9,6 +10,7 @@ export default class Entity {
 
   render(canvasContext) {
     const image = getSprite(this.type);
-    canvasContext.drawImage(image, this.position.x, this.position.y);
+    let config = SpriteConfig[this.type];
+    canvasContext.drawImage(image, this.position.x, this.position.y, config.width, config.height);
   }
 }

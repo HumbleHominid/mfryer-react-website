@@ -1,11 +1,13 @@
+import SpriteConfig from './spriteConfig';
+
 let sprites = {};
 
 function getSprite(entityType) {
   if (entityType in sprites) return sprites[entityType];
   else {
-    sprites[entityType] = new Image(64, 64);
-    // TODO: Lookup for the src
-    sprites[entityType].src = 'logo.png';
+    let config = SpriteConfig[entityType];
+    sprites[entityType] = new Image(config.width, config.height);
+    sprites[entityType].src = config.path;
     return sprites[entityType];
   }
 }
