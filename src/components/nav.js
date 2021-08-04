@@ -11,8 +11,8 @@ import '../styles/icon-jiggle.scss';
 
 export default function CustomNavbar() {
   return (
-    <header>
-      <Navbar bg="dark" expand="lg" variant="dark" sticky="top">
+    <header className="sticky-top">
+      <Navbar bg="dark" expand="lg" variant="dark">
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand href="/">
