@@ -1,6 +1,8 @@
 import { useRef, useEffect } from 'react';
 import { SpaceGameState } from './spaceGame';
 
+let buttons = [];
+
 export default function GameCanvas(props) {
   const { spaceGame, dt, ...rest} = props;
   const canvasRef = useRef(null);
@@ -45,15 +47,15 @@ function drawInGameUI(context, spaceGame) {
   context.fillText(`Lives: ${spaceGame.player.lives}`, gap, fontHeight + 2*gap);
 }
 
-function drawButton(context, centerX, centerY, text, scale = 1) {
+function drawButton(context, centerX, centerY, text, callback = () => {}, scale = 1) {
   let clampedScale = Math.max(Math.min(scale, 1), 0);
   const width = 150 * clampedScale;
   const height = 50 * clampedScale;
   const left = centerX - Math.floor(width / 2);
-  const right = centerY - Math.floor(height / 2);
+  const top = centerY - Math.floor(height / 2);
 
   context.strokeStyle = '#eee';
-  context.strokeRect(left, right, width, height);
+  context.strokeRect(left, top, width, height);
   
   const fontSize = Math.floor(20 * clampedScale);
   context.fillStyle = '#eee';
@@ -61,6 +63,14 @@ function drawButton(context, centerX, centerY, text, scale = 1) {
   context.textAlign = 'center';
   context.textBaseline = 'middle';
   context.fillText(text, centerX, centerY);
+
+  buttons.push({
+      top: top,
+      right: left + width,
+      bottom: top + height,
+      left: left,
+      callback: callback,
+  });
 }
 
 function drawTitle(context) {
@@ -78,11 +88,34 @@ function drawTitle(context) {
 
   context.font = `${subHeadingSize -2}px consolas`;
   context.fillText('Definitely an original game.', centerX, (2*gap) + headingSize, 300);
-  context.fillText('By: Michael Fryer', centerX, (3*gap) + headingSize + subHeadingSize)
+  context.fillText('By: Michael Fryer', centerX, (3*gap) + headingSize + subHeadingSize);
 
   // Buttons
-  drawButton(context, centerX, 275, 'PLAY');
-  drawButton(context, centerX, 350, 'CONTROLS', 0.8);
+  buttons = [];
+  context.canvas.removeEventListener("click", handleCanvasClick);
+
+  drawButton(context, centerX, 275, 'PLAY', () => alert('Let\'s play!' ));
+  drawButton(context, centerX, 350, 'CONTROLS', () => {}, 0.8);
 
   // TODO: Hook up the click events?!?!
+  context.canvas.addEventListener("click", handleCanvasClick);
+}
+
+function handleCanvasClick(e) {
+  const canvas = document.getElementById('gameCanvas');
+  const scaleFactor = (canvas.offsetWidth) / 750;
+  const canvasBB = canvas.getBoundingClientRect();
+  const clickX = (e.clientX - canvasBB.left) / scaleFactor;
+  const clickY = (e.clientY - canvasBB.top) / scaleFactor;
+
+  for (let i = 0; i < buttons.length; ++i) {
+    let button = buttons[i];
+
+    if (clickX >= button.left &&
+        clickX <= button.right &&
+        clickY >= button.top &&
+        clickY <= button.bottom) {
+      button.callback();
+    }
+  }
 }
