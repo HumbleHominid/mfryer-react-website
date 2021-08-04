@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import '../styles/game.scss';
 import GameCanvas from './game/gameCanvas';
 import SpaceGame from './game/spaceGame';
@@ -7,8 +7,11 @@ export default class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      spaceGame: new SpaceGame()
+      spaceGame: new SpaceGame(),
+      frameCount: 0
     }
+
+    setInterval(() => this.loop(), 1000 / 30); // render at 30fps
   }
 
   componentDidMount() {
@@ -33,9 +36,15 @@ export default class Game extends Component {
       <div>
         <h1 className="display-2">Game</h1>
         <div id="gameCanvasContainer">
-          <GameCanvas gameState={this.state.spaceGame} />
+          <GameCanvas spaceGame={this.state.spaceGame} frame={this.state.frameCount} />
         </div>
       </div>
     );
+  }
+
+  loop() {
+    this.setState({
+      frameCount: this.state.frameCount + 1
+    });
   }
 }

@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 
 export default function GameCanvas(props) {
-  const { gameState, ...rest} = props;
+  const { spaceGame, frame, ...rest} = props;
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -15,10 +15,10 @@ export default function GameCanvas(props) {
     context.fillStyle = '#1c1c1c';
     context.fillRect(0, 0, width, height);
 
-    gameState.forEachEntity((entity) => {
+    spaceGame.forEachEntity((entity) => {
       entity.render(context);
     });
-  }, [gameState]);
+  }, [spaceGame]);
 
   return <canvas id="gameCanvas" className="mx-auto" width="750" height="500" ref={canvasRef} {...rest} />
 }
