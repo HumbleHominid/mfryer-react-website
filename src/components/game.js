@@ -10,8 +10,6 @@ export default class Game extends Component {
       spaceGame: new SpaceGame(),
       frameCount: 0
     }
-
-    setInterval(() => this.loop(), 1000 / 30); // render at 30fps
   }
 
   componentDidMount() {
@@ -29,6 +27,8 @@ export default class Game extends Component {
       let calculatedHeight = clientHeight * 0.8;
       document.getElementById('gameCanvas').style.height = `${calculatedHeight}px`;
     }
+
+    setInterval(() => this.loop(), 1000 / 30); // render at 30fps
   }
 
   render() {
