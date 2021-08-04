@@ -4,6 +4,7 @@ import Position from './position';
 
 const SpaceGameState = {
   'TITLE': 'title',
+  'CONTROLS': 'controls',
   'PLAYING': 'playing',
   'PAUSED': 'paused',
   'POSTGAME': 'postgame',
