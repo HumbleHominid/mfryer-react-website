@@ -1,7 +1,8 @@
 import { useRef, useEffect } from 'react';
+import { SpaceGameState } from './spaceGame';
 
 export default function GameCanvas(props) {
-  const { spaceGame, frame, ...rest} = props;
+  const { spaceGame, dt, ...rest} = props;
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -21,14 +22,21 @@ export default function GameCanvas(props) {
     });
     spaceGame.player.render(context);
 
-    // Draw the lives and score
-    const gap = 5;
-    const fontHeight = 12;
-    context.font = `${fontHeight}px consolas`;
-    context.fillStyle = '#eee';
-    context.fillText(`Score: ${spaceGame.score}`, gap, fontHeight + gap);
-    context.fillText(`Lives: ${spaceGame.player.lives}`, gap, 2*(fontHeight + gap))
-  }, [spaceGame, frame]);
+
+    // TODO Make this component based here so we just do `renderUI()` instead or something. This slow
+    if (spaceGame.state === SpaceGameState.PLAYING) renderInGameUI(context, spaceGame);
+  }, [spaceGame, dt]);
 
   return <canvas id="gameCanvas" className="mx-auto" width="750" height="500" ref={canvasRef} {...rest} />
+}
+
+// Draws the lives and score
+function renderInGameUI(context, spaceGame) {
+  const gap = 5;
+  const fontHeight = 12;
+
+  context.font = `${fontHeight}px consolas`;
+  context.fillStyle = '#eee';
+  context.fillText(`Score: ${spaceGame.score}`, gap, fontHeight + gap);
+  context.fillText(`Lives: ${spaceGame.player.lives}`, gap, 2*(fontHeight + gap));
 }

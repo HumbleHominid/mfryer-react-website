@@ -7,7 +7,9 @@ export default class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      frameCount: 0
+      frameCount: 0,
+      lastTick: Date.now(),
+      dt: Date.now() - Date.now()
     }
     this.spaceGame = new SpaceGame();
   }
@@ -36,7 +38,7 @@ export default class Game extends Component {
       <div>
         <h1 className="display-2">Game</h1>
         <div id="gameCanvasContainer">
-          <GameCanvas spaceGame={this.spaceGame} frame={this.state.frameCount} />
+          <GameCanvas spaceGame={this.spaceGame} dt={this.state.dt} />
         </div>
       </div>
     );
@@ -46,9 +48,10 @@ export default class Game extends Component {
     const newFrameCount = this.state.frameCount + 1;
     this.spaceGame.score = Math.floor(newFrameCount / 10);
 
-  
     this.setState({
-      frameCount: newFrameCount
+      frameCount: newFrameCount,
+      lastTick: Date.now(),
+      dt: Date.now() - this.state.lastTick
     });
   }
 }
