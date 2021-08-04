@@ -30,7 +30,11 @@ export default class Game extends Component {
       document.getElementById('gameCanvas').style.height = `${calculatedHeight}px`;
     }
 
-    setInterval(() => this.loop(), 1000 / 30); // render at 30fps
+    this.tickTimer = setInterval(() => this.loop(), 1000 / 30); // render at 30fps
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.tickTimer);
   }
 
   render() {
