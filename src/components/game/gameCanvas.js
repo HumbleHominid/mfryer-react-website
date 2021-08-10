@@ -136,7 +136,6 @@ function drawControls(context, spaceGame) {
   const controls = [
     [ 'Pause', 'Esc' ],
     [ 'Forward', 'w' ],
-    [ 'Backward', 's' ],
     [ 'Rotate Right', 'd' ],
     [ 'Rotate Left', 'a' ],
     [ 'Shoot', 'Space' ]
