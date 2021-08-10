@@ -1,6 +1,6 @@
 import { EntityType } from './entityType';
 
-function Config(width = 64, height = 64, path = 'logo.png') {
+function Config(width = 16, height = 16, path = 'logo.png') {
   this.width = width;
   this.height = height;
   this.spritePath = path;
@@ -9,7 +9,7 @@ function Config(width = 64, height = 64, path = 'logo.png') {
 
 const EntityConfig = {
   [EntityType.ENEMY]: new Config(),
-  [EntityType.PLAYER]: new Config(100, 100),
+  [EntityType.PLAYER]: new Config(16, 16, 'player.png'),
 }
 
 export default EntityConfig;

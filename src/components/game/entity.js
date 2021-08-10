@@ -19,4 +19,6 @@ export default class Entity {
       width,
       height);
   }
+
+  tick(dt) {}
 }

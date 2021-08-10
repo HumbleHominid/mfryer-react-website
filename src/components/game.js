@@ -51,11 +51,14 @@ export default class Game extends Component {
   loop() {
     const newFrameCount = this.state.frameCount + 1;
     this.spaceGame.score = Math.floor(newFrameCount / 10);
+    const dt = Date.now() - this.state.lastTick;
+
+    this.spaceGame.tick(dt);
 
     this.setState({
       frameCount: newFrameCount,
       lastTick: Date.now(),
-      dt: Date.now() - this.state.lastTick
+      dt: dt,
     });
   }
 }

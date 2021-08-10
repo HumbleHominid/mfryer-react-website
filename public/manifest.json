@@ -11,6 +11,11 @@
       "src": "logo.png",
       "sizes": "64x64",
       "type": "image/png"
+    },
+    {
+      "src": "player.png",
+      "sizes": "64x64",
+      "type": "image/png"
     }
   ],
   "start_url": ".",

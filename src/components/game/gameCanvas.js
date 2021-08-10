@@ -28,7 +28,10 @@ export default function GameCanvas(props) {
 
     // TODO Make this component based here so we just do `renderUI()` instead or something. This slow
     if (spaceGame.state === SpaceGameState.TITLE) drawTitle(context, spaceGame);
-    else if (spaceGame.state === SpaceGameState.PLAYING) drawInGameUI(context, spaceGame);
+    else if (spaceGame.state === SpaceGameState.PLAYING) {
+      drawInGameUI(context, spaceGame);
+      spaceGame.player.render(context);
+    } 
     else if (spaceGame.state === SpaceGameState.CONTROLS) drawControls(context, spaceGame);
   }, [spaceGame, dt]);
 
@@ -135,10 +138,10 @@ function drawControls(context, spaceGame) {
 
   const controls = [
     [ 'Pause', 'Esc' ],
-    [ 'Forward', 'w' ],
-    [ 'Rotate Right', 'd' ],
-    [ 'Rotate Left', 'a' ],
-    [ 'Shoot', 'Space' ]
+    [ 'Forward', 'Up' ],
+    [ 'Rotate Right', 'Right' ],
+    [ 'Rotate Left', 'Left' ],
+    [ 'Shoot', 'z' ]
   ];
 
   for (let i = 0; i < controls.length; ++i) {

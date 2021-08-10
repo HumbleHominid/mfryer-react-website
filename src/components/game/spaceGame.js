@@ -14,7 +14,7 @@ export default class SpaceGame {
   state = SpaceGameState.TITLE;
   score = 0;
   level = -1;
-  player = createEntity(EntityType.PLAYER, new Position(375, 450));
+  player = createEntity(EntityType.PLAYER, new Position(375, 250));
   entities = [
     createEntity(EntityType.ENEMY, new Position(Math.random() * 750, Math.random() * 500)),
     createEntity(EntityType.ENEMY, new Position(Math.random() * 750, Math.random() * 500)),
@@ -22,6 +22,11 @@ export default class SpaceGame {
 
   forEachEntity(delegate = (entity) => {}) {
     for (let i = 0; i < this.entities.length; ++i) delegate(this.entities[i]);
+  }
+
+  tick(dt) {
+    // handle player tick
+    this.player.tick(dt);
   }
 }
 
