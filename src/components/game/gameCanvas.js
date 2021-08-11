@@ -31,6 +31,7 @@ export default function GameCanvas(props) {
     else if (spaceGame.state === SpaceGameState.PLAYING) {
       drawInGameUI(context, spaceGame);
       spaceGame.player.render(context);
+      spaceGame.bulletPool.render(context);
     } 
     else if (spaceGame.state === SpaceGameState.CONTROLS) drawControls(context, spaceGame);
   }, [spaceGame, dt]);
@@ -98,8 +99,8 @@ function drawTitle(context, spaceGame) {
   buttons = [];
   context.canvas.removeEventListener("click", handleCanvasClick);
 
-  drawButton(context, centerX, 275, 'PLAY', () => spaceGame.state = SpaceGameState.PLAYING);
-  drawButton(context, centerX, 350, 'CONTROLS', () => spaceGame.state = SpaceGameState.CONTROLS, 0.8);
+  drawButton(context, centerX, 275, 'PLAY', () => spaceGame.setState(SpaceGameState.PLAYING));
+  drawButton(context, centerX, 350, 'CONTROLS', () => spaceGame.setState(SpaceGameState.CONTROLS), 0.8);
 
   context.canvas.addEventListener("click", handleCanvasClick);
 }
@@ -129,7 +130,7 @@ function drawControls(context, spaceGame) {
   context.fillText('Controls', centerX, 15);
   
   // Back button
-  drawButton(context, centerX, 450, 'BACK', () => spaceGame.state = SpaceGameState.TITLE, 0.8);
+  drawButton(context, centerX, 450, 'BACK', () => spaceGame.setState(SpaceGameState.TITLE), 0.8);
   context.canvas.addEventListener("click", handleCanvasClick);
   
   // Controls

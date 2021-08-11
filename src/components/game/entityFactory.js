@@ -3,6 +3,7 @@ import Player from './player';
 import EntityConfig from './entityConfig'; 
 import { EntityType } from './entityType';
 import Size from './size';
+import Bullet from './bullet';
 
 function createEntity(entityType, position = null) {
   let entity = null;
@@ -13,6 +14,9 @@ function createEntity(entityType, position = null) {
       break;
     case EntityType.PLAYER:
       entity = new Player(position);
+      break;
+    case EntityType.BULLET:
+      entity = new Bullet(position);
       break;
     default:
       return entity;

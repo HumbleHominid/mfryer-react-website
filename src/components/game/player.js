@@ -2,10 +2,11 @@ import Entity from './entity'
 import { EntityType } from './entityType';
 import getSprite from './spritePool';
 
-const MAX_VEL = 100; // Max vel calculated as |<velX, velY>| units/s. TODO: Magic number (canvas width)
+const MAX_VEL = 100; // Max vel calculated as |<velX, velY>| units/s. TODO: Should be factor of canvas width
 const MAX_VEL_SQUARED = MAX_VEL * MAX_VEL;
 const VEL_STEP = MAX_VEL * 0.03; // units/s. Lower numbers are "more floaty"
 const ROTATION_SPEED = Math.PI * (3/2); // In radians/s
+const SHOOT_COOLDOWN = 500; // 500ms
 
 const INPUT_MAP = {
   'FORWARD': 'ArrowUp',
@@ -25,21 +26,22 @@ export default class Player extends Entity {
 
   inputs = { };
 
+  shootHandler = null;
+
+  lastShot = null;
+
   constructor(position = null) {
     if (position === null) super(EntityType.PLAYER);
     else super(EntityType.PLAYER, position);
-
-    // TODO: This should be handled by the outside
-    this.registerInput();
   }
 
-  registerInput() {
+  enableInput() {
     // TODO: Special-case pause to go right away
     document.addEventListener("keydown", (e) => this.inputs[e.code] = true);
     document.addEventListener("keyup", (e) => this.inputs[e.code] = false);
   }
 
-  deregisterInput() {
+  disableInput() {
     document.removeEventListener("keydown", (e) => this.inputs[e.code] = true);
     document.removeEventListener("keyup", (e) => this.inputs[e.code] = false);
   }
@@ -81,7 +83,12 @@ export default class Player extends Entity {
       this.adjustRotation();
     }
     if (this.inputs[INPUT_MAP.SHOOT]) {
-      console.log('pew');
+      if (this.shootHandler !== null) {
+        if (this.lastShot === null || Date.now() > this.lastShot + SHOOT_COOLDOWN) {
+          this.shootHandler();
+          this.lastShot = Date.now();
+        }
+      }
     }
 
     this.position.x += this.velX * dtSeconds;
@@ -96,7 +103,6 @@ export default class Player extends Entity {
 
   render(context)  {
     context.save();
-
     
     const image = getSprite(this.type);
     const width = this.size.width;
