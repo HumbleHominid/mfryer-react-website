@@ -27,7 +27,9 @@ export default function GameCanvas(props) {
     }
 
     // TODO Make this component based here so we just do `renderUI()` instead or something. This slow
-    if (spaceGame.state === SpaceGameState.TITLE) drawTitle(context, spaceGame);
+    if (spaceGame.state === SpaceGameState.TITLE) {
+      drawTitle(context, spaceGame);
+    }
     else if (spaceGame.state === SpaceGameState.PLAYING) {
       drawInGameUI(context, spaceGame);
       spaceGame.player.render(context);
@@ -50,6 +52,11 @@ function drawInGameUI(context, spaceGame) {
   context.textBaseline = 'hanging';
   context.fillText(`Score: ${spaceGame.score}`, gap, gap);
   context.fillText(`Lives: ${spaceGame.player.lives}`, gap, fontHeight + 2*gap);
+
+  // TODO: Do this on state change instead of in each of these functions
+  // Buttons
+  buttons = [];
+  context.canvas.removeEventListener("click", handleCanvasClick);
 }
 
 function drawButton(context, centerX, centerY, text, callback = () => {}, scale = 1) {
@@ -95,6 +102,7 @@ function drawTitle(context, spaceGame) {
   context.fillText('Definitely an original game.', centerX, (2*gap) + headingSize, 300);
   context.fillText('By: Michael Fryer', centerX, (3*gap) + headingSize + subHeadingSize);
 
+  // TODO: Do this on state change instead of in each of these functions
   // Buttons
   buttons = [];
   context.canvas.removeEventListener("click", handleCanvasClick);
