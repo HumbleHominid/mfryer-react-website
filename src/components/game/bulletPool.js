@@ -2,28 +2,70 @@ import createEntity from './entityFactory';
 import { EntityType } from './entityType';
 import Position from './position';
 import EntityConfig from './entityConfig';
+import QuadTree from './quadTree';
+
+function makeSortingFunc(xMin, yMin, xMax, yMax) {
+  return (item) => {
+    // TODO: Fix the magic numbers!!!
+    const width = xMax - xMin;
+    const height = yMax - yMin;
+
+    const halfWidth = width / 2;
+    const halfHeight = height / 2;
+
+    let x = Math.floor((item.position.x - xMin) / halfWidth); // [0, 1]
+    let y = Math.floor((item.position.y - yMin) / halfHeight); // [0, 1]
+
+    return (x + (2 * y));
+  };
+};
+
+function makeQuadTree() {
+  let topLevelChildren = Array(4);
+
+  const halfWidth = 750 / 2;
+  const halfHeight = 500 / 2;
+
+  for (let i = 0; i < 4; ++i) {
+    let xMin = halfWidth * (i % 2);
+    let yMin = halfHeight * Math.floor(i / 2);
+    let quad = new QuadTree({
+      sortFunc: makeSortingFunc(xMin, yMin, xMin + halfWidth, yMin + halfHeight),
+      children: [
+        new QuadTree({isLeaf: true}),
+        new QuadTree({isLeaf: true}),
+        new QuadTree({isLeaf: true}),
+        new QuadTree({isLeaf: true}),
+      ],
+    });
+
+    topLevelChildren[i] = quad;
+  }
+
+  return new QuadTree({
+    children: topLevelChildren,
+    sortFunc: makeSortingFunc(0, 0, 750, 500) // TODO: Magic numbers
+  });
+}
 
 export default class BulletPool {
   pool = null;
 
   constructor() {
-    // TODO: This should be nested arrays that split the space into 16 spaces. However, JS is running into some memory issues when I try to do that and I'm not sure why. Since arrays are all references, I suspect that references aren't getting cleaned up and causing mem leaks. Obviously, this is undesirable. Moreover, the memleaks compound and cause the system to run out of memory very quickly. Although this current implementation is inefficent, it is preferable in the short term to running out of memory.
-    this.pool = [];
+    this.pool = makeQuadTree();
   }
 
   tick(dt) {
-    for (let i = 0; i > -1 && i < this.pool.length; ++i) {
-      let bullet = this.pool[i];
-      bullet.tick(dt);
+    let newTree = makeQuadTree();
+    console.log('bulletPool:tick')
+    this.pool.forEach((item) => {
+      console.log('ticking bullet');
+      item.tick(dt);
 
-      // Remove swap hack thing
-      if (!bullet.isAlive) {
-        let newLength = this.pool.length - 1;
-        this.pool[i] = this.pool[newLength];
-        this.pool.length = newLength;
-        --i;
-      }
-    }
+      if (item.isAlive) newTree.insert(item);
+    });
+
+    this.pool = newTree;
   }
 
   spawnBullet(position, facingAngle) {
@@ -35,12 +77,12 @@ export default class BulletPool {
 
     let bullet = createEntity(EntityType.BULLET, bulletInitialPosition);
     bullet.init(facingAngle);
-    this.pool.push(bullet);
+    this.pool.insert(bullet);
   }
 
   render(context) {
-    for (let i = 0; i < this.pool.length; ++i) {
-      this.pool[i].render(context);
-    }
+    this.pool.forEach((item) => {
+      item.render(context);
+    });
   }
 }
