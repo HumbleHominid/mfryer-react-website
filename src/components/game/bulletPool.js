@@ -57,9 +57,7 @@ export default class BulletPool {
 
   tick(dt) {
     let newTree = makeQuadTree();
-    console.log('bulletPool:tick')
     this.pool.forEach((item) => {
-      console.log('ticking bullet');
       item.tick(dt);
 
       if (item.isAlive) newTree.insert(item);
