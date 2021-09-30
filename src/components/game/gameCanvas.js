@@ -1,11 +1,15 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useMemo } from 'react';
+import Stars from './stars';
 import { SpaceGameState } from './spaceGame';
 
 let buttons = [];
+const width = 750;
+const height = 500;
 
 export default function GameCanvas(props) {
-  const { spaceGame, dt, ...rest} = props;
+  const { spaceGame, dt, ...rest } = props;
   const canvasRef = useRef(null);
+  const stars = useMemo(() => new Stars({ width: width, height: height }), []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -19,7 +23,8 @@ export default function GameCanvas(props) {
     context.fillRect(0, 0, width, height);
 
     // Render the entities
-    if (spaceGame.stat === SpaceGameState.PLAYING) {
+    if (spaceGame.state === SpaceGameState.PLAYING) {
+      stars.render(context);
       spaceGame.forEachEntity((entity) => {
         entity.render(context);
       });
@@ -36,9 +41,9 @@ export default function GameCanvas(props) {
       spaceGame.bulletPool.render(context);
     } 
     else if (spaceGame.state === SpaceGameState.CONTROLS) drawControls(context, spaceGame);
-  }, [spaceGame, dt]);
+  }, [spaceGame, dt, stars]);
 
-  return <canvas id="gameCanvas" className="mx-auto" width="750" height="500" ref={canvasRef} {...rest} />;  // TODO: magic numbers
+  return <canvas id="gameCanvas" className="mx-auto" width={width} height={height} ref={canvasRef} {...rest} />;
 }
 
 // Draws the lives and score

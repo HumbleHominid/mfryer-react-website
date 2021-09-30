@@ -1,7 +1,6 @@
 import createEntity from './entityFactory';
 import { EntityType } from './entityType';
 import Position from './position';
-import Bullet from './bullet';
 import BulletPool from './bulletPool';
 
 const SpaceGameState = {
@@ -22,7 +21,6 @@ export default class SpaceGame {
   tickQueue = [];
 
   setState(inState) {
-    console.log('setstate')
     this.state = inState;
 
     switch (this.state) {
