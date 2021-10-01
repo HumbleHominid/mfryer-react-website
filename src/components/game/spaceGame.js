@@ -77,11 +77,12 @@ export default class SpaceGame {
 
   renderEntities(context) {
     if (this.player) this.player.render(context);
-    if (this.bulletPool) this.bulletPool.pool.forEach((bullet) => { bullet.render(context); });
-    if (this.enemyPool) this.enemyPool.pool.forEach((enemy) => { enemy.render(context); });
+    if (this.bulletPool) this.bulletPool.forEach((bullet) => { bullet.render(context); });
+    if (this.enemyPool) this.enemyPool.forEach((enemy) => { enemy.render(context); });
   }
 
   tick(dt) {
+    // Update all the entities
     for (let i = 0; i < this.tickQueue.length; ++i) this.tickQueue[i].tick(dt);
   }
 

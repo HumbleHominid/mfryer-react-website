@@ -29,4 +29,6 @@ export default class EnemyPool {
       item.render(context);
     });
   }
+
+  forEach(delegate = () => {}) { if (this.pool) this.pool.forEach(delegate); }
 }

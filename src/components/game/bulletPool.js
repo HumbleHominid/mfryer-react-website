@@ -7,11 +7,14 @@ import { makeQuadTree } from './quadTree';
 export default class BulletPool {
   pool = null;
 
+  get hasEntries() { return this.pool && this.pool.numEntries > 0; }
+
   constructor() {
     this.pool = makeQuadTree();
   }
 
   tick(dt) {
+    // TODO: figure out how to defer a removal of an item so you don't have to remake this tree every frame
     let newTree = makeQuadTree();
     this.pool.forEach((item) => {
       item.tick(dt);
@@ -39,4 +42,6 @@ export default class BulletPool {
       item.render(context);
     });
   }
+
+  forEach(delegate = () => {}) { if (this.pool) this.pool.forEach(delegate); }
 }
