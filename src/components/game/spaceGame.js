@@ -12,6 +12,13 @@ const SpaceGameState = {
   'POSTGAME': 'postgame',
 };
 
+// iterative is faster but this isn't run much so meh
+function fib(n) {
+  if (n <= 0) return 0;
+  if (n == 1) return 1;
+  return fib(n - 2) + fib(n - 1);
+}
+
 export default class SpaceGame {
   state = SpaceGameState.TITLE;
   score = 0;
@@ -25,7 +32,9 @@ export default class SpaceGame {
   setLevel(level) {
     if (this.enemyPool === null) return;
 
-    let enemyCount = 10;
+    // We use fibonacci for levels so it gets real hard real fast
+    // start from level+1 as fib(1) == fib(2)
+    let enemyCount = fib(level + 1);
     for (let i = 0; i < enemyCount; ++i) this.enemyPool.spawnEnemy();
   }
 
