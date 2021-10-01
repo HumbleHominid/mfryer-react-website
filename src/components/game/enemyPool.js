@@ -2,6 +2,7 @@ import createEntity from './entityFactory';
 import { EntityType } from './entityType';
 import Position from './position';
 import { makeQuadTree } from './quadTree';
+import { MAX_STAGE } from './enemy';
 
 export default class EnemyPool {
   pool = null;
@@ -16,10 +17,10 @@ export default class EnemyPool {
     });
   }
 
-  spawnEnemy() {
+  spawnEnemy(stage = MAX_STAGE) {
+    // TODO: Magic numbers
     let enemy = createEntity(EntityType.ENEMY, new Position(Math.random() * 750, Math.random() * 500));
-    // TODO: make the starting size actually make sense
-    enemy.init(Math.floor(Math.random() * 3));
+    enemy.init(stage);
     this.pool.insert(enemy);
   }
 

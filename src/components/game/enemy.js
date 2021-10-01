@@ -13,13 +13,15 @@ const MAX_SPEED = 100;
 
 const ENEMY_SCALE = [ 0.5, 0.8, 1.0 ];
 
+const MAX_STAGE = ENEMY_SCALE.length - 1;
+
 export default class Enemy extends Entity {
   constructor(position = null) {
     if (position === null) super(EntityType.ENEMY);
     else super(EntityType.ENEMY, position);
   }
 
-  init(stage = 2) {
+  init(stage = MAX_STAGE) {
     this.stage = stage;
     this.facingAngle = Math.random() * (2 * Math.PI);
     let totalVel = (Math.random() * (MAX_SPEED - MIN_SPEED)) + MIN_SPEED;
@@ -84,3 +86,5 @@ export default class Enemy extends Entity {
     context.restore();
   }
 }
+
+export { MAX_STAGE };
