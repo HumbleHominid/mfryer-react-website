@@ -8,9 +8,9 @@ function Config(width = 16, height = 16, path = 'logo.png') {
 }
 
 const EntityConfig = {
-  [EntityType.ENEMY]: new Config(),
+  [EntityType.ENEMY]: new Config(32, 32, 'rock.png'),
   [EntityType.PLAYER]: new Config(16, 16, 'player.png'),
-  [EntityType.BULLET]: new Config(8, 8, 'bullet.png')
+  [EntityType.BULLET]: new Config(8, 8, 'bullet.png'),
 }
 
 export default EntityConfig;

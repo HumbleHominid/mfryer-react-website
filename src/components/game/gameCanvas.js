@@ -14,32 +14,21 @@ export default function GameCanvas(props) {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-    const width = canvas.width;
-    const height = canvas.height;
-
-    // Draw a dark screen
+    const width = context.canvas.width;
+    const height = context.canvas.height;
     context.clearRect(0, 0, width, height);
-    context.fillStyle = '#1c1c1c';
-    context.fillRect(0, 0, width, height);
+
+    // Stars are on every screen
+    stars.render(context);
 
     // Render the entities
     if (spaceGame.state === SpaceGameState.PLAYING) {
-      stars.render(context);
-      spaceGame.forEachEntity((entity) => {
-        entity.render(context);
-      });
-      spaceGame.player.render(context);
+      spaceGame.renderEntities(context);
     }
 
     // TODO Make this component based here so we just do `renderUI()` instead or something. This slow
-    if (spaceGame.state === SpaceGameState.TITLE) {
-      drawTitle(context, spaceGame);
-    }
-    else if (spaceGame.state === SpaceGameState.PLAYING) {
-      drawInGameUI(context, spaceGame);
-      spaceGame.player.render(context);
-      spaceGame.bulletPool.render(context);
-    } 
+    if (spaceGame.state === SpaceGameState.TITLE) drawTitle(context, spaceGame);
+    else if (spaceGame.state === SpaceGameState.PLAYING) drawInGameUI(context, spaceGame);
     else if (spaceGame.state === SpaceGameState.CONTROLS) drawControls(context, spaceGame);
   }, [spaceGame, dt, stars]);
 
@@ -65,15 +54,23 @@ function drawInGameUI(context, spaceGame) {
 }
 
 function drawButton(context, centerX, centerY, text, callback = () => {}, scale = 1) {
+  context.save();
+
   let clampedScale = Math.max(Math.min(scale, 1), 0);
   const width = 150 * clampedScale;
   const height = 50 * clampedScale;
   const left = centerX - Math.floor(width / 2);
   const top = centerY - Math.floor(height / 2);
 
+  // Make a black background so no stars show through
+  context.fillStyle = '#1c1c1c';
+  context.fillRect(left, top, width, height);
+
+  // Make the button outline
   context.strokeStyle = '#eee';
   context.strokeRect(left, top, width, height);
   
+  // Fill in the text for the button
   const fontSize = Math.floor(20 * clampedScale);
   context.fillStyle = '#eee';
   context.font = `${fontSize}px consolas`;
@@ -88,6 +85,8 @@ function drawButton(context, centerX, centerY, text, callback = () => {}, scale 
       left: left,
       callback: callback,
   });
+
+  context.restore();
 }
 
 function drawTitle(context, spaceGame) {

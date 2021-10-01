@@ -2,6 +2,7 @@ import createEntity from './entityFactory';
 import { EntityType } from './entityType';
 import Position from './position';
 import BulletPool from './bulletPool';
+import EnemyPool from './enemyPool';
 
 const SpaceGameState = {
   'TITLE': 'title',
@@ -16,17 +17,25 @@ export default class SpaceGame {
   score = 0;
   level = -1;
   player = null;
-  entities = []; // TODO: probably make a rock pool for these instead
+  enemyPool = null;
   bulletPool = null;
   tickQueue = [];
+
+  // Sets the level of the game
+  setLevel(level) {
+    if (this.enemyPool === null) return;
+
+    let enemyCount = 10;
+    for (let i = 0; i < enemyCount; ++i) this.enemyPool.spawnEnemy();
+  }
 
   setState(inState) {
     this.state = inState;
 
     switch (this.state) {
       case SpaceGameState.PLAYING:
-        // TODO probably more level logic and stuff in here.
         this.player = createEntity(EntityType.PLAYER, new Position(375, 250));
+        this.enemyPool = new EnemyPool();
         this.bulletPool = new BulletPool();
 
         // Register the player input
@@ -36,6 +45,9 @@ export default class SpaceGame {
         // Register the tick functions
         this.tickQueue.push(this.player);
         this.tickQueue.push(this.bulletPool);
+        this.tickQueue.push(this.enemyPool);
+
+        this.setLevel(1);
         break;
       case SpaceGameState.TITLE:
       case SpaceGameState.CONTROLS:
@@ -43,10 +55,10 @@ export default class SpaceGame {
       case SpaceGameState.POSTGAME:
       // Fallthrough is intended
       default:
-        this.player.disableInput();
+        if (this.player) this.player.disableInput();
         this.player = null;
-        this.entities = null;
         this.bulletPool = null;
+        this.enemyPool = null;
         this.level = -1;
         this.score = 0;
         this.tickQueue = [];
@@ -54,14 +66,14 @@ export default class SpaceGame {
     }
   }
 
-  forEachEntity(delegate = (entity) => {}) {
-    for (let i = 0; i < this.entities.length; ++i) delegate(this.entities[i]);
+  renderEntities(context) {
+    if (this.player) this.player.render(context);
+    if (this.bulletPool) this.bulletPool.pool.forEach((bullet) => { bullet.render(context); });
+    if (this.enemyPool) this.enemyPool.pool.forEach((enemy) => { enemy.render(context); });
   }
 
   tick(dt) {
-    for (let i = 0; i < this.tickQueue.length; ++i) {
-      this.tickQueue[i].tick(dt);
-    }
+    for (let i = 0; i < this.tickQueue.length; ++i) this.tickQueue[i].tick(dt);
   }
 
   handlePlayerShoot() {

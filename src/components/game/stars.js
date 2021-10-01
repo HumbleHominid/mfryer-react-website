@@ -23,6 +23,15 @@ export default class Stars {
 
   render(context) {
     context.save();
+
+    const width = context.canvas.width;
+    const height = context.canvas.height;
+
+    // Draw a dark screen
+    context.fillStyle = '#1c1c1c';
+    context.fillRect(0, 0, width, height);
+
+    // Draw the stars
     context.fillStyle = '#eee';
 
     for (let i = 0; i < this.tiles.length; ++i) {
