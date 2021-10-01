@@ -40,9 +40,9 @@ export default class Bullet extends Entity {
     
     // TODO: Magic numbers
     if (this.position.x > 750) this.position.x -= 750;
-    if (this.position.x < 0) this.position.x += 750;
+    else if (this.position.x < 0) this.position.x += 750;
     if (this.position.y > 500) this.position.y -= 500;
-    if (this.position.y < 0) this.position.y += 500;
+    else if (this.position.y < 0) this.position.y += 500;
 
     this.lifetime -= dtSeconds;
   }
