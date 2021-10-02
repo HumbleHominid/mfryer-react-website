@@ -3,10 +3,13 @@ import Position from './position';
 import Size from './size';
 
 export default class Entity {
+  static idCount = 0;
+
   constructor(type, position = new Position(0, 0), size = new Size()) {
     this.position = position === null ? new Position(0, 0) : position;
     this.type = type;
     this.size = size;
+    this.id = ++Entity.idCount;
   }
 
   render(canvasContext) {
