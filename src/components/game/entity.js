@@ -24,4 +24,6 @@ export default class Entity {
   }
 
   tick(dt) {}
+
+  get isAlive() { return false; }
 }

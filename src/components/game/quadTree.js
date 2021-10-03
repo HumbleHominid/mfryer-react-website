@@ -43,43 +43,104 @@ function makeQuadTree() {
 
 export default class QuadTree {
   children = null;
-  items = null;
+  _items = null;
   entries = 0;
 
-  get numEntries() { return this.entries; }
+  get items() {
+    let ret = [];
+    this.forEach((item) => { ret.push(item); });
+    return ret;
+  }
+
+  get numEntries() {
+    let ret = 0;
+    this.forEach(() => { ++ret; });
+    return ret;
+  }
 
   constructor({ isLeaf = false, sortFunc = (item) => {} /* Function that takes an item and returns [0,4]. */, children = null }) {
     this.isLeaf = isLeaf;
     this.sortFunc = sortFunc;
     this.children = children;
-    this.items = isLeaf ? [] : null;
+    this._items = isLeaf ? [] : null;
   }
 
   insert(item) {
     if (this.isLeaf) {
-      this.items.push(item);
+      this._items.push(item);
       ++this.entries;
       return;
     }
 
-    let index = this.sortFunc(item);
+    let childIndex = this.sortFunc(item);
 
-    if (index >= 0 && index < 4) {
-      this.children[index].insert(item);
-      ++this.entries;
+    if (childIndex >= 0 && childIndex < 4) {
+      this.children[childIndex].insert(item);
     }
   }
 
-  forEach(delegate = (item) => {}) {
+  remove(item) {
     if (this.isLeaf) {
-      for (let i = 0; i < this.items.length; ++i) {
-        delegate(this.items[i]);
+      let index = this._items.findIndex((a) => a.id === item.id);
+
+      if (index !== -1) {
+        --this.entries;
+        this._items.splice(index, 1);
+      }
+    }
+
+    let childIndex = this.sortFunc(item);
+
+    if (childIndex >= 0 && childIndex < 4) {
+      this.children[childIndex].remove(item);
+    }
+  }
+
+  forEach(delegate = (item, node) => {}) {
+    if (this.isLeaf) {
+      for (let i = 0; i < this._items.length; ++i) {
+        delegate(this._items[i], this);
       }
     }
     else {
       for (let i = 0; i < this.children.length; ++i) {
         this.children[i].forEach(delegate);
       }
+    }
+  }
+
+  tick(dt) {
+    function ItemUpdateObj(node, item) {
+      this.node = node;
+      this.item = item;
+    }
+
+    let itemsToRemove = [];
+    let itemsToUpdate = [];
+    this.forEach((item, node) => {
+      let initialQuad = this.sortFunc(item);
+      item.tick(dt);
+      let finalQuad = this.sortFunc(item);
+
+      if (!item.isAlive) {
+        itemsToRemove.push(new ItemUpdateObj(node, item));
+      }
+      else if (initialQuad !== finalQuad) itemsToUpdate.push(new ItemUpdateObj(node, item));
+    });
+
+    // reconcile dead entities
+    for (let i = 0; i < itemsToRemove.length; ++i) {
+      let updateObj = itemsToRemove[i];
+      let index = updateObj.node._items.findIndex((item) => item.id === updateObj.item.id);
+      if (index !== -1) updateObj.node._items.splice(index, 1);
+    }
+
+    // reconcile entities that moved quadrants
+    for (let i = 0; i < itemsToUpdate.length; ++i) {
+      let updateObj = itemsToUpdate[i];
+      let index = updateObj.node._items.findIndex((item) => item.id === updateObj.item.id);
+      if (index !== -1) updateObj.node._items.splice(index, 1);
+      this.insert(updateObj.item);
     }
   }
 }

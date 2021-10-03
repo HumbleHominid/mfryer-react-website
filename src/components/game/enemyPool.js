@@ -11,11 +11,7 @@ export default class EnemyPool {
     this.pool = makeQuadTree();
   }
 
-  tick(dt) {
-    this.pool.forEach((item) => {
-      item.tick(dt);
-    });
-  }
+  tick(dt) { this.pool.tick(dt); }
 
   spawnEnemy(stage = MAX_STAGE) {
     // TODO: Magic numbers

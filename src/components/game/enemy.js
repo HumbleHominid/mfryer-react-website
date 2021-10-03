@@ -37,7 +37,7 @@ export default class Enemy extends Entity {
     this.rotationSpeed *= Math.random() < 0.5 ? 1 : -1;
   }
 
-  get isAlive() { return this.size > -1; }
+  get isAlive() { return this.stage > -1; }
 
   tick(dt) {
     const dtSeconds = dt / 1000;

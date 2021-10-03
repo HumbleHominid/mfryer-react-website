@@ -13,17 +13,7 @@ export default class BulletPool {
     this.pool = makeQuadTree();
   }
 
-  tick(dt) {
-    // TODO: figure out how to defer a removal of an item so you don't have to remake this tree every frame
-    let newTree = makeQuadTree();
-    this.pool.forEach((item) => {
-      item.tick(dt);
-
-      if (item.isAlive) newTree.insert(item);
-    });
-
-    this.pool = newTree;
-  }
+  tick(dt) { this.pool.tick(dt); }
 
   spawnBullet(position, facingAngle) {
     const playerConfig = EntityConfig[EntityType.PLAYER];
