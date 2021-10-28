@@ -109,6 +109,13 @@ export default class QuadTree {
     }
   }
 
+  getNodeForItem(item) {
+    if (this.isLeaf) return this;
+
+    let quad = this.sortFunc(item);
+    this.children[quad].getNodeForItem(item);
+  }
+
   tick(dt) {
     function ItemUpdateObj(node, item) {
       this.node = node;

@@ -84,6 +84,13 @@ export default class SpaceGame {
   tick(dt) {
     // Update all the entities
     for (let i = 0; i < this.tickQueue.length; ++i) this.tickQueue[i].tick(dt);
+
+    // Handle the collisions
+    if (this.bulletPool && this.enemyPool) {
+      this.bulletPool.forEach((bullet) => {
+        let rockNode
+      })
+    }
   }
 
   handlePlayerShoot() {
