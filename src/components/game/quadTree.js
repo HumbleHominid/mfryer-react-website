@@ -75,6 +75,7 @@ export default class QuadTree {
     let childIndex = this.sortFunc(item);
 
     if (childIndex >= 0 && childIndex < 4) {
+      item.quadCoords.push(childIndex);
       this.children[childIndex].insert(item);
     }
   }
@@ -85,7 +86,9 @@ export default class QuadTree {
 
       if (index !== -1) {
         --this.entries;
-        this._items.splice(index, 1);
+        let res = this._items.splice(index, 1);
+        res[0].quadCoords = [];
+        return;
       }
     }
 
@@ -94,6 +97,13 @@ export default class QuadTree {
     if (childIndex >= 0 && childIndex < 4) {
       this.children[childIndex].remove(item);
     }
+  }
+
+  getChildrenForCoords(arr) {
+    if (this.isLeaf) return this._items;
+    if (arr.length <= 0) return [];
+
+    return this.children[arr[0]].getChildrenForCoords(arr.slice(1));
   }
 
   forEach(delegate = (item, node) => {}) {
@@ -145,8 +155,7 @@ export default class QuadTree {
     // reconcile entities that moved quadrants
     for (let i = 0; i < itemsToUpdate.length; ++i) {
       let updateObj = itemsToUpdate[i];
-      let index = updateObj.node._items.findIndex((item) => item.id === updateObj.item.id);
-      if (index !== -1) updateObj.node._items.splice(index, 1);
+      updateObj.node.remove(updateObj.item);
       this.insert(updateObj.item);
     }
   }

@@ -84,11 +84,12 @@ export default class SpaceGame {
   tick(dt) {
     // Update all the entities
     for (let i = 0; i < this.tickQueue.length; ++i) this.tickQueue[i].tick(dt);
-
     // Handle the collisions
     if (this.bulletPool && this.enemyPool) {
+      console.log(this.enemyPool.pool)
       this.bulletPool.forEach((bullet) => {
-        let rockNode
+        console.log(bullet)
+        let enemies = this.enemyPool.pool.getChildrenForCoords(bullet.quadCoords);
       })
     }
   }
