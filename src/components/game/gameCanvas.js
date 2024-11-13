@@ -69,7 +69,7 @@ function drawButton(context, centerX, centerY, text, callback = () => {}, scale 
   // Make the button outline
   context.strokeStyle = '#eee';
   context.strokeRect(left, top, width, height);
-  
+
   // Fill in the text for the button
   const fontSize = Math.floor(20 * clampedScale);
   context.fillStyle = '#eee';
@@ -140,11 +140,11 @@ function drawControls(context, spaceGame) {
   context.textAlign = 'center';
   context.textBaseline = 'hanging';
   context.fillText('Controls', centerX, 15);
-  
+
   // Back button
   drawButton(context, centerX, 450, 'BACK', () => spaceGame.setState(SpaceGameState.TITLE), 0.8);
   context.canvas.addEventListener("click", handleCanvasClick);
-  
+
   // Controls
   const gap = 20;
   const controlListTop = context.canvas.height * 0.4;
@@ -154,7 +154,7 @@ function drawControls(context, spaceGame) {
     [ 'Forward', 'Up' ],
     [ 'Rotate Right', 'Right' ],
     [ 'Rotate Left', 'Left' ],
-    [ 'Shoot', 'z' ]
+    [ 'Shoot', 'Space' ]
   ];
 
   for (let i = 0; i < controls.length; ++i) {
