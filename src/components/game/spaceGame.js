@@ -89,7 +89,7 @@ export default class SpaceGame {
       console.log(this.enemyPool.pool)
       this.bulletPool.forEach((bullet) => {
         console.log(bullet)
-        let enemies = this.enemyPool.pool.getChildrenForCoords(bullet.quadCoords);
+        // let enemies = this.enemyPool.pool.getChildrenForCoords(bullet.quadCoords);
       })
     }
   }
