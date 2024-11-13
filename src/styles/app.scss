@@ -24,7 +24,7 @@ body {
   }
 
   @include media-breakpoint-up(md) {
-    margin: 0 10%;
+    margin: 0 20%;
   }
 }
 
@@ -50,4 +50,8 @@ body {
 
 .btn-link-de-chonk {
   padding: 0 !important;
+}
+
+.dropshadow {
+  box-shadow: 5px 5px 5px black;
 }
