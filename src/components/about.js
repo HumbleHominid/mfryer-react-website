@@ -1,4 +1,4 @@
-import { Diplomas, Fish, ArcadiaThumbnail, GitHub, LinkedIn, Resume, YouTube } from '../refLinks';
+import { Diplomas, Fish, ArcadiaThumbnail, GitHub, Resume, YouTube } from '../refLinks';
 
 import '../styles/about.scss';
 
