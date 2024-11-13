@@ -1,4 +1,4 @@
-import Entity from './entity'
+import Entity from './entity';
 import { EntityType } from './entityType';
 import Position from './position';
 import getSprite from './spritePool';
@@ -16,6 +16,7 @@ const ENEMY_SCALE = [ 0.5, 0.8, 1.0 ];
 const MAX_STAGE = ENEMY_SCALE.length - 1;
 
 export default class Enemy extends Entity {
+	quadCoords = [];
   constructor(position = null) {
     if (position === null) super(EntityType.ENEMY);
     else super(EntityType.ENEMY, position);

@@ -8,6 +8,7 @@ const BULLET_LIFETIME = (0.8 * 500) / BULLET_VEL; // TODO: Magic number
 
 export default class Bullet extends Entity {
   lifetime = BULLET_LIFETIME;
+	quadCoords = [];
   constructor(position) {
     super(EntityType.BULLET, position);
   }
