@@ -38,6 +38,11 @@ export default class Enemy extends Entity {
     this.rotationSpeed *= Math.random() < 0.5 ? 1 : -1;
   }
 
+  setStage(stage) {
+    if (stage > -1) this.init(stage);
+    else this.stage = -1;
+  }
+
   get isAlive() { return this.stage > -1; }
 
   tick(dt) {

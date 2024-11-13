@@ -13,9 +13,15 @@ export default class EnemyPool {
 
   tick(dt) { this.pool.tick(dt); }
 
-  spawnEnemy(stage = MAX_STAGE) {
+  spawnEnemy(stage = MAX_STAGE, position = null) {
+    let enemy = null;
     // TODO: Magic numbers
-    let enemy = createEntity(EntityType.ENEMY, new Position(Math.random() * 750, Math.random() * 500));
+    if (position != null) {
+      enemy = createEntity(EntityType.ENEMY, position);
+    }
+    else {
+      enemy = createEntity(EntityType.ENEMY, new Position(Math.random() * 750, Math.random() * 500));
+    }
     enemy.init(stage);
     this.pool.insert(enemy);
   }
