@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import { LinkContainer } from 'react-router-bootstrap';
 import Container from 'react-bootstrap/Container';
 import { Github, Linkedin, FileEarmarkPdf } from 'react-bootstrap-icons';
-import { GitHub, LinkedIn } from '../refLinks';
+import { GitHub, LinkedIn, Resume } from '../refLinks';
 import Email from './email';
 
 import '../styles/nav.scss';
@@ -36,13 +36,13 @@ export default function CustomNavbar() {
               </LinkContainer>
             </Nav>
             <Nav className="nav-icon-container">
-              <Nav.Link id="gitHubLink" className="icon-jiggle" title="GitHub" href={GitHub}>
+              <Nav.Link id="gitHubLink" className="icon-jiggle" title="GitHub" target="_blank" rel="noreferrer" href={GitHub}>
                 <Github />
               </Nav.Link>
-              <Nav.Link id="linkedInLink" className="icon-jiggle" title="LinkedIn" href={LinkedIn}>
+              <Nav.Link id="linkedInLink" className="icon-jiggle" title="LinkedIn" target="_blank" rel="noreferrer" href={LinkedIn}>
                 <Linkedin />
               </Nav.Link>
-              <Nav.Link id="resumeLink" className="icon-jiggle" title="Resume" href="/resume" disabled>
+              <Nav.Link id="resumeLink" className="icon-jiggle" title="Resume" target="_blank" rel="noreferrer" href={Resume}>
                 <FileEarmarkPdf />
               </Nav.Link>
               <Email />
