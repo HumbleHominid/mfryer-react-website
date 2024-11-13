@@ -2,8 +2,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { LinkContainer } from 'react-router-bootstrap';
 import Container from 'react-bootstrap/Container';
-import { Github, Linkedin, FileEarmarkPdf } from 'react-bootstrap-icons';
-import { GitHub, LinkedIn, Resume } from '../refLinks';
+import { Github as GitHubIcon, Youtube as YouTubeIcon, FileEarmarkPdf as FileEarmarkPdfIcon } from 'react-bootstrap-icons';
+import { GitHub, YouTube, Resume } from '../refLinks';
 import Email from './email';
 
 import '../styles/nav.scss';
@@ -37,13 +37,13 @@ export default function CustomNavbar() {
             </Nav>
             <Nav className="nav-icon-container">
               <Nav.Link id="gitHubLink" className="icon-jiggle" title="GitHub" target="_blank" rel="noreferrer" href={GitHub}>
-                <Github />
+                <GitHubIcon />
               </Nav.Link>
-              <Nav.Link id="linkedInLink" className="icon-jiggle" title="LinkedIn" target="_blank" rel="noreferrer" href={LinkedIn}>
-                <Linkedin />
+              <Nav.Link id="youTubeLink" className="icon-jiggle" title="YouTube" target="_blank" rel="noreferrer" href={YouTube}>
+                <YouTubeIcon />
               </Nav.Link>
               <Nav.Link id="resumeLink" className="icon-jiggle" title="Resume" target="_blank" rel="noreferrer" href={Resume}>
-                <FileEarmarkPdf />
+                <FileEarmarkPdfIcon />
               </Nav.Link>
               <Email />
             </Nav>

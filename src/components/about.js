@@ -31,7 +31,7 @@ export default function About() {
           <span className="about-text">Additionally, I love to get outdoors, especially during the summer. Getting some sun and kayaking on the lake is one of life's great pleasures. Any time I can get out and do some early morning fishing is a good day in my book. In the fall of 2024 I caught the biggest rainbow I've ever seen. It weighed in around 4.5 pounds!</span>
       </div>
 
-      <div className="about-entry">If you made it this far, thanks for reading through all that. There are links to my <a target="_blank" rel="noreferrer" href={GitHub}>GitHub</a>, <a target="_blank" rel="noreferrer" href={LinkedIn}>LinkedIn</a>, and a download for my <a target="_blank" rel="noreferrer" href={Resume}>resume</a> here as well as in the footer.</div>
+      <div className="about-entry">If you made it this far, thanks for reading through all that. There are links to my <a target="_blank" rel="noreferrer" href={GitHub}>GitHub</a>, <a target="_blank" rel="noreferrer" href={YouTube}>YouTube</a>, and a download for my <a target="_blank" rel="noreferrer" href={Resume}>resume</a> here as well as in the footer.</div>
     </div>
   );
 }
