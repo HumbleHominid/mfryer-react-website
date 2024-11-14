@@ -111,7 +111,8 @@ function drawTitle(context, spaceGame) {
   buttons = [];
   context.canvas.removeEventListener("click", handleCanvasClick);
 
-  drawButton(context, centerX, 275, 'PLAY', () => spaceGame.setState(SpaceGameState.PLAYING));
+  // drawButton(context, centerX, 275, 'PLAY', () => spaceGame.setState(SpaceGameState.PLAYING));
+  drawButton(context, centerX, 275, 'COMING SOON', () => {});
   drawButton(context, centerX, 350, 'CONTROLS', () => spaceGame.setState(SpaceGameState.CONTROLS), 0.8);
 
   context.canvas.addEventListener("click", handleCanvasClick);
