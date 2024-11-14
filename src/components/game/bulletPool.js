@@ -2,18 +2,23 @@ import createEntity from './entityFactory';
 import { EntityType } from './entityType';
 import Position from './position';
 import EntityConfig from './entityConfig';
-import { makeQuadTree } from './quadTree';
 
 export default class BulletPool {
   pool = null;
 
-  get hasEntries() { return this.pool && this.pool.numEntries > 0; }
+  get hasEntries() { return this.pool && this.pool.length > 0; }
 
   constructor() {
-    this.pool = makeQuadTree();
+    this.pool = [];
   }
 
-  tick(dt) { this.pool.tick(dt); }
+  tick(dt) {
+    // tick all the bullets
+    this.pool.forEach((bullet) => bullet.tick(dt));
+
+    // remove all bullets that have expired their lifetime
+    this.pool = this.pool.filter((bullet) => bullet.isAlive);
+  }
 
   spawnBullet(position, facingAngle) {
     const playerConfig = EntityConfig[EntityType.PLAYER];
@@ -24,7 +29,7 @@ export default class BulletPool {
 
     let bullet = createEntity(EntityType.BULLET, bulletInitialPosition);
     bullet.init(facingAngle);
-    this.pool.insert(bullet);
+    this.pool.push(bullet);
   }
 
   render(context) {

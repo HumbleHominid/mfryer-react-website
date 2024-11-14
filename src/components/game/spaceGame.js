@@ -86,11 +86,32 @@ export default class SpaceGame {
     for (let i = 0; i < this.tickQueue.length; ++i) this.tickQueue[i].tick(dt);
     // Handle the collisions
     if (this.bulletPool && this.enemyPool) {
-      console.log(this.enemyPool.pool)
       this.bulletPool.forEach((bullet) => {
-        console.log(bullet)
-        // let enemies = this.enemyPool.pool.getChildrenForCoords(bullet.quadCoords);
-      })
+        let enemies = this.enemyPool.pool.getChildrenForCoords(bullet.quadCoords);
+
+        for (let i = 0; i < enemies.length; ++i) {
+          let enemy = enemies[i];
+          let bullet_x = bullet.position.x;
+          let bullet_y = bullet.position.y;
+          let enemy_x1 = enemy.position.x - (enemy.size.width / 2);
+          let enemy_x2 = enemy.position.x + (enemy.size.width / 2);
+          let enemy_y1 = enemy.position.y - (enemy.size.height / 2);
+          let enemy_y2 = enemy.position.y + (enemy.size.height / 2);
+
+          // Check if the bullet is within the bounding box.
+          if ((bullet_x > enemy_x1 && bullet_x < enemy_x2) &&
+            (bullet_y > enemy_y1 && bullet_y < enemy_y2)) {
+              // No double kills
+              bullet.lifetime = -1;
+              enemy.setStage(enemy.stage - 1);
+              ++this.score;
+              if (enemy.stage > -1) {
+                this.enemyPool.spawnEnemy(enemy.stage, new Position(enemy.position.x, enemy.position.y));
+                break;
+              }
+            }
+        }
+      });
     }
   }
 
